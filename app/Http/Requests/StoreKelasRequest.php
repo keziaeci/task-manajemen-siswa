@@ -11,7 +11,7 @@ class StoreKelasRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreKelasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            // 'grade' => 'required',
+            'name' => 'required|unique:kelas'
         ];
     }
 }

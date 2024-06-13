@@ -13,7 +13,9 @@ class MuridController extends Controller
      */
     public function index()
     {
-        //
+        return view('Murid.index',[
+            'murids' => Murid::all()
+        ]);
     }
 
     /**

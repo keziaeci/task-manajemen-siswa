@@ -13,7 +13,9 @@ class GuruController extends Controller
      */
     public function index()
     {
-        //
+        return view('Guru.index',[
+            'gurus' =>  Guru::latest()->get()
+        ]);
     }
 
     /**

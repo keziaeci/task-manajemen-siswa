@@ -10,6 +10,8 @@ class Kelas extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     function gurus() : BelongsToMany {
         return $this->belongsToMany(Guru::class,'kelas_guru');
     }

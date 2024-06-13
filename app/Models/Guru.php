@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Guru extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+
 
     function kelas() : BelongsToMany {
         return $this->belongsToMany(Kelas::class);

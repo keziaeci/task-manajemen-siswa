@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MuridController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +22,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('home');
     })->name('home');
+
+    Route::controller(MuridController::class)->group(function() {
+        Route::get('/murids', 'index')->name('murid');
+    });
+
+    Route::controller(KelasController::class)->group(function() {
+        Route::get('/kelas', 'index')->name('kelas');
+        Route::get('/kelas/{kelas}', 'show')->name('kelas-show');
+        Route::patch('/kelas/{kelas}', 'update')->name('kelas-update');
+        Route::delete('/kelas/{kelas}', 'destroy')->name('kelas-destroy');
+        Route::post('/kelas', 'store')->name('kelas-store');
+    });
+
+    Route::controller(GuruController::class)->group(function() {
+        Route::get('/gurus', 'index')->name('guru');
+    });
 });
 
 Route::middleware('guest')->group(function () {
