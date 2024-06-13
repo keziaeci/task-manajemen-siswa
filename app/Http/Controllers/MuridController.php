@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMuridRequest;
 use App\Http\Requests\UpdateMuridRequest;
+use App\Models\Kelas;
 use App\Models\Murid;
 
 class MuridController extends Controller
@@ -14,7 +15,13 @@ class MuridController extends Controller
     public function index()
     {
         return view('Murid.index',[
-            'murids' => Murid::all()
+            'murids' => Murid::latest()->filter(request('search'))->get()
+        ]);
+    }
+
+    function search()  {
+        return response()->json([
+            'murids' => Murid::latest()->with('kelas')->filter(request('search'))->get()
         ]);
     }
 
@@ -23,7 +30,9 @@ class MuridController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json([
+            'kelases' => Kelas::latest()->get()
+        ]);
     }
 
     /**
@@ -31,7 +40,13 @@ class MuridController extends Controller
      */
     public function store(StoreMuridRequest $request)
     {
-        //
+        $murid = Murid::create($request->validated());
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil disimpan',
+            'data' => $murid
+        ],201);
     }
 
     /**
@@ -39,7 +54,12 @@ class MuridController extends Controller
      */
     public function show(Murid $murid)
     {
-        //
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Detail umr$murid',
+        //     'data'    => $murid,
+        //     'kelases' => Kelas::all()  
+        // ]);
     }
 
     /**
@@ -47,7 +67,10 @@ class MuridController extends Controller
      */
     public function edit(Murid $murid)
     {
-        //
+        return response()->json([
+            'kelases' => Kelas::latest()->get(),
+            'murid' => $murid
+        ]);
     }
 
     /**
@@ -55,7 +78,13 @@ class MuridController extends Controller
      */
     public function update(UpdateMuridRequest $request, Murid $murid)
     {
-        //
+        $murid->update($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diperbarui',
+            'data' => $murid
+        ]);
     }
 
     /**
@@ -63,6 +92,10 @@ class MuridController extends Controller
      */
     public function destroy(Murid $murid)
     {
-        //
+        $murid->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil dihapus',
+        ]);
     }
 }
