@@ -11,7 +11,7 @@ class StoreMuridRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreMuridRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'kelas_id' => 'required'
         ];
     }
 }

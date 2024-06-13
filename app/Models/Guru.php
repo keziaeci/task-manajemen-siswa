@@ -13,6 +13,6 @@ class Guru extends Model
 
 
     function kelas() : BelongsToMany {
-        return $this->belongsToMany(Kelas::class);
+        return $this->belongsToMany(Kelas::class,'kelas_guru');
     }
 }

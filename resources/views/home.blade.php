@@ -17,7 +17,30 @@
         Sidebar
     </a>
 
-    <p>welcome</p>
+    <div class="container">
+        <h2>Data siswa</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    {{-- <th scope="col">Tingkat</th> --}}
+                    <th scope="col">Nama</th>
+                    <th scope="col">Kelas</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($murids as $murid)
+                <tr>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $murid->name }}</td>
+                    <td>
+                        {{ $murid->kelas->name }}
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
@@ -27,29 +50,15 @@
         <div class="offcanvas-body">
             <ul class="list-unstyled">
                 <li>
-                    <a href="{{ route('murid') }}">Murid</a>
+                    <a href="{{ route('murids') }}">Murid</a>
                 </li>
                 <li>
-                    <a href="{{ route('guru') }}">Guru</a>
+                    <a href="{{ route('gurus') }}">Guru</a>
                 </li>
                 <li>
                     <a href="{{ route('kelas') }}">Kelas</a>
                 </li>
             </ul>
-            {{-- <div>
-                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images,
-                lists, etc.
-            </div> --}}
-            {{-- <div class="dropdown mt-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    Dropdown button
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div> --}}
         </div>
     </div>
 
