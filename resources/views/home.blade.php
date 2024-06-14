@@ -18,12 +18,14 @@
     </a>
 
     <div class="container">
-        <h2>Data siswa</h2>
+        <h1>Selamat Datang</h1>
+    </div>
+    <div class="container">
+        <h2>Siswa Kelas</h2>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    {{-- <th scope="col">Tingkat</th> --}}
                     <th scope="col">Nama</th>
                     <th scope="col">Kelas</th>
                 </tr>
@@ -35,6 +37,35 @@
                     <td>{{ $murid->name }}</td>
                     <td>
                         {{ $murid->kelas->name }}
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <h2>Siswa Guru</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Guru</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($murids as $murid)
+                <tr>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $murid->name }}</td>
+                    <td>
+                        <ul>
+                            @foreach ($murid->gurus() as $guru)
+                            <li>
+                                {{ $guru->name}}
+                            </li>
+                            @endforeach
+                        </ul>
                     </td>
                 </tr>
                 @endforeach

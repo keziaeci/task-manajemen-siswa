@@ -20,6 +20,13 @@
             Tambah
         </button>
 
+        <div class="input-group my-3">
+            <input type="text" class="form-control" id="search" placeholder="kelas" aria-label="Recipient's username"
+                aria-describedby="buttonSearch">
+            <button class="btn btn-outline-secondary" type="submit" id="buttonSearch">Cari</button>
+        </div>
+
+
         <!-- Modal Create-->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -151,6 +158,54 @@
                 }
             });
         });
+
+        $('#buttonSearch').click(function (e) { 
+                e.preventDefault();
+                let search = $('#search').val();
+                console.log(search)
+                $.ajax({
+                    type: "GET",
+                    url: `/gurus/search?search=${search}`,
+                    dataType: "JSON",
+                    success: function (response) {
+                        let rows = '';
+                        let gurus = response.gurus;
+                        console.log(response.gurus)
+                        
+                        let i = 0
+                        gurus.forEach(guru => {
+                            let kelas = ''
+                            guru.kelas.forEach(k => {
+                                kelas += `
+                                            <li>
+                                                ${k.name}
+                                            </li>
+                                    `
+                            });
+                            // console.log(kelas)
+                            i++
+                            rows += `
+                                <tr>
+                                    <td>${i}</td>
+                                    <td>${guru.name}</td> 
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            ${kelas}
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <button id="btnDelete" data-id="${guru.id}" class="btn btn-danger">Delete</button>
+                                        <button id="btnEdit" data-id="${guru.id}" class="btn btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#modalEdit">Edit</button>
+                                    </td>
+                                </tr>
+                                `;
+                        });
+
+                        $('.table tbody').html(rows); 
+                    }
+                });
+            });
 
         $(document).ready(function () {
             $("#submit").click(function (e) { 

@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Guru;
 use App\Models\Murid;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuruController;
@@ -22,7 +24,8 @@ use App\Http\Controllers\MuridController;
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('home',[
-            'murids' => Murid::filter(request('filter'))->all()
+            'murids' => Murid::latest()->get(),
+            'gurus' => Guru::with('murids')->latest()->get() ,
         ]);
     })->name('home');
 
@@ -47,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(GuruController::class)->group(function() {
         Route::get('/gurus', 'index')->name('gurus');
         Route::get('/guru/create', 'create')->name('guru-create');
+        Route::get('/gurus/search', 'search')->name('guru-search');
         Route::get('/guru/{guru}', 'edit')->name('guru-edit');
         Route::patch('/guru/{guru}', 'update')->name('guru-update');
         Route::delete('/guru/{guru}', 'destroy')->name('guru-destroy');

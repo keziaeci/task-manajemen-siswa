@@ -19,6 +19,12 @@ class GuruController extends Controller
         ]);
     }
 
+    function search()  {
+        return response()->json([
+            'gurus' => Guru::latest()->with('kelas')->filter(request('search'))->get()
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */ 

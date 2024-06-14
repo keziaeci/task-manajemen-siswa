@@ -176,10 +176,12 @@
                         let murids = response.murids;
                         console.log(murids)
 
+                        let i = 0
                         murids.forEach(murid => {
+                            i++
                             rows += `
                                 <tr>
-                                    <td>${murid.id}</td>
+                                    <td>${i}</td>
                                     <td>${murid.name}</td>
                                     <td>${murid.kelas.name}</td>
                                     <td>
