@@ -272,24 +272,24 @@
                                 let kelases = response.kelases
                                 let options = '';
                                 let guru_kelas = response.guru.kelas
-                                console.log(response.guru.kelas)
 
                                 kelases.forEach(kelas => {
                                     // FIXME: multiseleect eedit
                                     let selected = ''
-                                    
-                                    if (guru_kelas.includes(kelas.id)) {
+
+                                    if (guru_kelas.find(gk => gk.kelas_id == kelas.id)) {
                                         selected = 'selected'
                                     }
                                     
                                     options += `<option value="${kelas.id}" ${selected}>${kelas.name}</option>`;
+                                    console.log(options)
                                 });
                 
                                 $('#formEdit').append(`
                                     <div class="mb-3">
                                         <label for="kelas" class="form-label">Kelas</label>
                                         <select class="form-select" multiple name="kelas_id[]" id="kelas_id" aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
+                                            <option>Open this select menu</option>
                                             ${options}
                                         </select>
                                     </div>

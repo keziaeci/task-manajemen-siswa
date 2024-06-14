@@ -17,9 +17,12 @@
         Sidebar
     </a>
 
+    <button class="btn btn-danger" id="btnLogout">Logout</button>
+
     <div class="container">
         <h1>Selamat Datang</h1>
     </div>
+
     <div class="container">
         <h2>Siswa Kelas</h2>
         <table class="table">
@@ -98,6 +101,29 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 
+    <script>
+        $(document).ready(function () {
+            $('#btnLogout').click(function (e) { 
+                e.preventDefault();
+                let token = $("meta[name='csrf-token']").attr('content');
+                
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('logout') }}",
+                    data: {
+                        "_token" : token
+                    },
+                    success: function (response) {
+                        window.location.reload()
+                        console.log(response)
+                    },
+                    error: function (response) { 
+                        console.log(response)
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

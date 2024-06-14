@@ -21,8 +21,14 @@ class UpdateKelasRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|unique:kelas'
+        $rules = [
+            'name' => 'required'
         ];
+
+        if ($this->input('name') != $this->kelas->name) {
+            $rules['name'] = "required|unique:kelas";
+        }
+        
+        return $rules;
     }
 }

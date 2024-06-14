@@ -23,7 +23,7 @@ class UpdateMuridRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'kelas_id' => 'required'
+            'kelas_id' => 'nullable'
         ];
     }
 }

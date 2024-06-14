@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
         ]);
     })->name('home');
 
+    Route::post('/logout', [AuthController::class,'logout'])->name('logout');
+
     Route::controller(KelasController::class)->group(function() {
         Route::get('/kelas', 'index')->name('kelas');
         Route::get('/kelas/{kelas}', 'show')->name('kelas-show');
